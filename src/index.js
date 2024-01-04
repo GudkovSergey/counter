@@ -22,20 +22,23 @@ import './index.scss';
 //     refsCount.divCount.textContent=refsCount.counterItem;
 // };
 class Counter {
-    constructor({selector,counterItem=0 }) {
+    constructor({selector,counterDefault=0 , counterName}) {
         const parent = document.querySelector(selector);
-        this.counterItem = counterItem;
+        this.counterActual = counterDefault;
+        this.counterName =counterName;
         this.refsCount = {
 
             buttonMinus: parent.querySelector('.minus'),
             buttonPlus: parent.querySelector('.plus'),
-            divCount: parent.querySelector('.countNumber')
+            divCount: parent.querySelector('.countNumber'),
+            spanCounterItem: parent.querySelector('.counterItem')
         }
         this.updateCounter();
         this.addListeners();
     }
     updateCounter(){
-        this.refsCount.divCount.textContent = this.counterItem;
+        this.refsCount.divCount.textContent = this.counterActual;
+        this.refsCount.spanCounterItem.textContent = this.counterName;
     }
 
     addListeners() {
@@ -45,16 +48,17 @@ class Counter {
     }
 
     increments() {
-        this.counterItem++
+        this.counterActual++
         this.updateCounter();
     };
 
     decrements() {
-        if (this.counterItem > 0) {
-            this.counterItem--
+        if (this.counterActual > 0) {
+            this.counterActual--
         }
         this.updateCounter();
     };
 };
-new Counter({selector:'#counter1'});
-new Counter({selector:'#counter2'});
+new Counter({selector:'#counter1',counterName:'спальни'});
+new Counter({selector:'#counter2',counterName:'кровати'});
+new Counter({selector:'#counter3',counterName:'ванные комнаты'});
